@@ -1,0 +1,9 @@
+Flask>=1.1
+Pillow>=8.0
+numpy>=1.18
+# TensorFlow is required to load and run your Keras model. Choose the appropriate package for your machine.
+# For most modern CPUs, install tensorflow (may be large):
+# tensorflow>=2.6
+# If you prefer smaller CPU-only wheel on some platforms, use tensorflow-cpu if available.
+
+# Uncomment one of the tensorflow lines before installing.

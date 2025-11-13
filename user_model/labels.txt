@@ -1,0 +1,6 @@
+0 Abnormal_xray
+1 normal_xray
+2 abnormal_mri
+3 normal_mri
+4 normal_ct
+5 abnormal_ct

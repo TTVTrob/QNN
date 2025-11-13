@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Image Classifier</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; }
+      .card { max-width: 720px; margin: 0 auto; padding: 1rem; border: 1px solid #ddd; border-radius: 6px; }
+      .preview { max-width: 100%; height: auto; border: 1px solid #ccc; padding: 4px; }
+      .result { margin-top: 1rem; padding: 0.5rem; border-radius: 4px; }
+      .normal { background: #e6ffed; border: 1px solid #8fe0a1; }
+      .abnormal { background: #fff0f0; border: 1px solid #f5a3a3; }
+      .error { background: #fff6e6; border: 1px solid #ffd08a; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>Local Image Classifier</h2>
+      <p>Upload an image and the model in <code>user_model/keras_model.h5</code> will be used to predict whether it's normal or abnormal (with confidence).</p>
+
+      {% if error %}
+        <div class="result error">Error: {{ error }}</div>
+      {% endif %}
+
+      <form method="post" action="{{ url_for('predict') }}" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required />
+        <button type="submit">Upload & Predict</button>
+      </form>
+
+      {% if filename %}
+        <h3>Uploaded image</h3>
+        <img src="{{ url_for('uploaded_file', filename=filename) }}" class="preview" alt="uploaded image" />
+
+        <div class="result {% if label and 'normal' in label|lower %}normal{% else %}abnormal{% endif %}">
+          <strong>Prediction:</strong> {{ label }}
+          <br />
+          <strong>Confidence:</strong> {{ confidence }}%
+        </div>
+      {% endif %}
+
+      <hr />
+      <small>Make sure the directory <code>user_model/</code> contains <code>keras_model.h5</code> and <code>labels.txt</code> (one label per line).</small>
+    </div>
+  </body>
+</html>
